@@ -59,7 +59,7 @@ function displayForecast() {
             var temperatureForecast = $("<div>").text("Temp: " + temperatureForecastF + " °F");
             var humidityForecast = $("<div>").text("Humidity: " +response.list[i].main.humidity + "%");
         
-            dailyForecast = $("<div>").attr('class', 'col-md-2');
+            dailyForecast = $("<div>").attr('class', 'col-md-2 card');
 
             $("#five-day").append(dailyForecast);
             dailyForecast.append(fullDateForecast);

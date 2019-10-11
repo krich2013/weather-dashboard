@@ -9,29 +9,47 @@
     rel="stylesheet"
     href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
 
+    <link
+    rel="stylesheet"
+    href="style.css"/>
+
 </head>
 <body>
     <div class="container">
-        <div class="col-md-4">
-            <div id="city-search">
-                <h1>Search for a City:</h1>
+        <div class="row">
+            <div class="col-md-4">
+                <div id="city-search">
+                    <h1>Search for a City:</h1>
+                </div>
+                <form id="city-form">
+                    <label for="city-input"></label>
+                    <input type="text" id="city-input"><br>
+                    <input id="add-city" type="submit" value="Search">
+                </form>
+                <div id="city-searches"></div>
             </div>
-            <form id="city-form">
-                <label for="city-input"></label>
-                <input type="text" id="city-input"><br>
-                <input id="add-city" type="submit" value="Search">
-            </form>
-            <div id="city-searches"></div>
+    
+            <div class="col-md-8">
+                <div class="row">
+                    <div id="city-name"></div>
+                </div>
+                <div class="row">
+                    <div id="city-information"></div>
+                </div>
+                <div class="row">
+                    <h2>5-Day Forecast</h2>
+                </div>
+                    <div class="row" id="five-day">
+                        <div class="col-md-2">Test1</div>
+                        <div class="col-md-2">Test2</div>
+                        <div class="col-md-2">Test3</div>
+                        <div class="col-md-2">Test4</div>
+                        <div class="col-md-2">Test5</div>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <div class="col-md-8">
-            <div id="city-name"></div>
-            <div id="city-information"></div>
         
-            <div id="five-day">
-                <h1>5-Day Forecast</h1>
-            </div>
-        </div>
 
     </div>
     

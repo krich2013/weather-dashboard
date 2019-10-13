@@ -5,11 +5,13 @@ var day = date.getDate();
 var year = date.getFullYear();
 var weatherType = "";
 var dailyForecast = "";
-city = "";
-cityClicked = "";
-lat ="";
-lon="";
-uvIndex = "";
+var city = "";
+var cityClicked = "";
+var lat ="";
+var lon="";
+var uvIndex = "";
+var queryURL1 ="";
+
 
 
 init();
@@ -28,6 +30,7 @@ renderCities();
 // Display the main city information
 function displayCityInfo() {
     $("#cities-view").empty();
+
     city = $("#city-input").val().trim();
 
 // Check to see if the city has been placed in the input field or clicked
@@ -61,6 +64,19 @@ function displayCityInfo() {
         var windSpeed = $("<div>").text("Wind Speed: " + response.wind.speed + " mph");
         lat = response.coord.lat;
         lon = response.coord.lon;
+            var queryDate = Math.round((new Date()).getTime() / 1000);
+            uvIndex = "";
+            queryURL1 = "http://api.openweathermap.org/data/2.5/uvi/history?appid=820563b56586bdba74b840ae13ef1180&lat="+lat+"&lon="+lon+"&cnt=1&start="+queryDate+"&end="+queryDate;
+            
+            $.ajax({
+                url: queryURL1,
+                method: "GET"
+            }).then(function(response) {
+                console.log(response);
+                uvIndex = response[0].value;
+                var uvIndexContent = $("<div>").attr("id","uv-index").text("UV Index: " + uvIndex);
+                $("#city-information").append(uvIndexContent);
+            })
         weatherType = response.weather[0].description;
         
         $("#city-name").empty();
@@ -72,25 +88,9 @@ function displayCityInfo() {
         $("#city-information").append(temperature);
         $("#city-information").append(humidity);
         $("#city-information").append(windSpeed);
-        displayUVInfo();
     });
 }
 
-function displayUVInfo() {
-    var queryDate = Math.round((new Date()).getTime() / 1000);
-    console.log(queryDate);
-    var queryURL1 = "http://api.openweathermap.org/data/2.5/uvi/history?appid=820563b56586bdba74b840ae13ef1180&lat="+lat+"&lon="+lon+"&cnt=1&start="+queryDate+"&end="+queryDate;
-    
-    $.ajax({
-        url: queryURL1,
-        method: "GET"
-    }).then(function(response) {
-        console.log(response);
-        uvIndex = response[0].value;
-        var uvIndexContent = $("<div>").text("UV Index: " + uvIndex);
-        $("#city-information").append(uvIndexContent);
-    })
-}
 
 // Display the 5 day forecast
 function displayForecast() {
@@ -169,7 +169,6 @@ function renderCities() {
 $(document).on("click", ".city-item", function(event){
     event.preventDefault;
     cityClicked = $(this).attr("data-name");
-    displayUVInfo();
     displayCityInfo();
     displayForecast();
 });
@@ -181,7 +180,7 @@ $("#add-city").on("click",function(event) {
     cities.push(city);
     storeCities();
     renderCities();
-    displayUVInfo();
     displayCityInfo();
     displayForecast();
 })
+

@@ -184,3 +184,27 @@ $("#add-city").on("click",function(event) {
     displayForecast();
 })
 
+// Geolocating the user's latitude and longitude
+var options = {
+    enableHighAccuracy: true,
+    timeout: 5000,
+    maximumAge: 0
+};
+
+function success(pos) {
+var crd = pos.coords;
+    var locationText = $("<div>").text('Your current location is:');
+    var latitude = $("<div>").text(`Latitude : ${crd.latitude}`);
+    var longitude = $("<div>").text(`Longitude: ${crd.longitude}`);
+
+    $("#user-location").append(locationText);
+    $("#user-location").append(latitude);
+    $("#user-location").append(longitude);
+}
+
+function error(err) {
+    console.warn(`ERROR(${err.code}): ${err.message}`);
+}
+
+navigator.geolocation.getCurrentPosition(success, error, options);
+
